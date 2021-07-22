@@ -101,7 +101,7 @@ sudo yum install nodejs
 
 可能是 yum 源太旧了?
 
-根据(这篇文章)[https://segmentfault.com/a/1190000022323818]更新 yum 成阿里的源
+根据[这篇文章](https://segmentfault.com/a/1190000022323818)更新 yum 成阿里的源
 
 ```bash
 cd /etc/yum.repos.d
@@ -111,7 +111,7 @@ yum makecache
 yum -y update
 ```
 
-根据(这篇文章)[https://www.jianshu.com/p/2cc020b170c0]卸载旧的 node
+根据[这篇文章](https://www.jianshu.com/p/2cc020b170c0)卸载旧的 node
 
 ```bash
 yum remove nodejs npm -y
