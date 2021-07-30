@@ -1,11 +1,11 @@
 /* eslint-disable no-underscore-dangle */
+const { pick } = require('lodash');
 const User = require('../model/user');
 const jwt = require('../util/jwt');
 
 exports.handleLogin = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email }).exec();
-    console.info(user._id);
+    const user = await User.findOne({ email: req.body.email });
     const token = await jwt.sign({ userId: user._id, email: user.email });
     res.json({ success: true, token });
   } catch (e) {
@@ -20,8 +20,7 @@ exports.handleRegister = async (req, res, next) => {
 
     await user.save();
 
-    const userForShow = user.toJSON();
-    delete userForShow.password;
+    const userForShow = pick(user.toJSON(), ['_id', 'username', 'email', 'createdAt']);
     res.status(201).json({ success: true, user: userForShow });
   } catch (e) {
     next(e);

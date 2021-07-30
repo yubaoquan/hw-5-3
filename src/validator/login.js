@@ -9,7 +9,7 @@ exports.register = validate([
     .withMessage('用户名不能为空')
     .bail()
     .custom(async (username) => {
-      const user = await User.findOne({ username }).exec();
+      const user = await User.findOne({ username });
       if (user) return Promise.reject(Error('用户名已存在'));
     }),
   body('email')
@@ -19,7 +19,7 @@ exports.register = validate([
     .withMessage('邮箱格式错误')
     .bail()
     .custom(async (email) => {
-      const user = await User.findOne({ email }).exec();
+      const user = await User.findOne({ email });
       if (user) return Promise.reject(Error('邮箱已存在'));
     }),
   body('password').notEmpty().withMessage('密码不能为空'),
@@ -35,7 +35,7 @@ exports.login = validate([
     .bail()
     .custom(async (pwd, { req }) => {
       const { email } = req.body;
-      const user = await User.findOne({ email }).select({ password: 1 }).exec();
+      const user = await User.findOne({ email }).select({ password: 1 });
       if (user.password !== saltMd5(pwd)) return Promise.reject(Error('邮箱或密码错误'));
     }),
 ]);
